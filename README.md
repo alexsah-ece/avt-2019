@@ -14,21 +14,21 @@ pip install requirements.txt
 To download a video from youtube you have to:
 - Create a `videos` folder 
 - Create a `links.txt` file containing the videos you want to download
-- Run `python custom_video.py`
+- Run `python download_video.py`
 
 The videos will be downloaded into the `videos` directory.
 
 ### Video Crop
 To crop an already downloaded video you can run:
 ```
-python crop-video.py {VIDEO_TO_CROP} \
+python crop_video.py {VIDEO_TO_CROP} \
     -o {CROPPED_VIDEO} \
     --start {START_TIME_IN_SECONDS} \
     --end 20 {END_TIME_IN_SECONDS}
 ```
 Example - Crop video and retain the part between 5-15 seconds, saving its output to `mydata/cropped.mp4`:
 ```
-python crop-video.py videos/full_video.mkv \
+python crop_video.py videos/full_video.mkv \
     -o videos/cropped.mkv \
     --start 5 \
     --end 15
