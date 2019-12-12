@@ -1,0 +1,7 @@
+videos/
+frames/
+*.pyc
+venv/
+env/
+.vscode/
+links.txt
