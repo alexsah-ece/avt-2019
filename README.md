@@ -5,7 +5,7 @@ _Python 3 is assumed to be the version of python in use._
 
 To install the required packages run:
 ```
-pip install requirements.txt
+pip install -r requirements.txt
 ```
 
 Add ffmpeg with
