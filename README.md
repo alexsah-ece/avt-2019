@@ -47,3 +47,20 @@ Example - Extract frames from 1'25" to 1'49"
 ```shell
 python extract_frames.py videos/76ers_vs_nuggets_dec2019.mp4 --start 00:01:25 --end 00:01:49
 ```
+
+## Annotation format transformation
+
+You can transform `YOLO` to `VOC` and vice versa using the `format_transform/format_transform.py` script.
+
+Granted that you have annotated your images in`YOLO` format and saved the images and their annotations in a `{DATASET}` directory, you can add `VOC` format annotations by executing:
+```
+python format_transform.py {PATH_TO_DATASET_DIRECTORY} yolo_to_voc
+```
+If you want to do the `VOC` to `YOLO` transformation you can execute:
+```
+python format_transform.py {PATH_TO_DATASET_DIRECTORY} voc_to_yolo
+```
+The new annotations will be saved along with the images and the initial anotations at the `{DATASET}` directory.
+
+_Note that, along with the images and the annotations, a `classes.txt` file must be present at the `{DATASET}` directory.
+Using `labelimg` to annotate the images will, normally, lead to automatic creation of this file._
