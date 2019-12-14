@@ -29,6 +29,11 @@ def get_args():
         type=str,
         default="."
     )
+    parser.add_argument(
+        "--fps",
+        type=str,
+        default="25"
+    )
     return parser.parse_args()
 
 
@@ -54,7 +59,7 @@ def extract_frames(args):
         os.mkdir('frames/')
 
     input_name = args.input.split('/')[-1].split('.')
-    command = f'ffmpeg -i {args.input} -ss {args.start} -to {args.end} ./frames/{input_name[0]}-frame%04d.jpg'
+    command = f'ffmpeg -i {args.input} -vf fps={args.fps} -ss {args.start} -to {args.end} ./frames/{input_name[0]}-frame%04d.jpg'
     command = command.split(' ')
     subprocess.call(command)
 
