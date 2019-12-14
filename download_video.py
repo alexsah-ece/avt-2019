@@ -33,6 +33,7 @@ ydl_opts = {
     'logger': SimpleLogger(),
     'progress_hooks': [hook_handler],
     'format': 'mp4',
+    'restrictfilenames': 'true',
     'merge-output-format': 'mp4',
     'writesubtitles': False, 
     'outtmpl': "videos/%(title)s.%(ext)s",
