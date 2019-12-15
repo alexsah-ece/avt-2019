@@ -5,6 +5,7 @@ from yolo_io import YoloReader, YOLOWriter
 from pascal_voc_io import PascalVocWriter, PascalVocReader
 from argparse import ArgumentParser
 
+PATH_SEP = os.path.sep
 
 class FormatTransform:
 
@@ -61,8 +62,8 @@ class FormatTransform:
         
         # initialize Writer object to prepare for .xml file creation
         writer = Writer(
-            foldername=image_path.split('/')[-2],
-            filename=image_path.split('/')[-1],
+            foldername=image_path.split(PATH_SEP)[-2],
+            filename=image_path.split(PATH_SEP)[-1],
             imgSize=imgSize,
             localImgPath=image_path
         )
