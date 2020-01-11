@@ -6,6 +6,7 @@ from keras.preprocessing import image
 from keras.applications.vgg16 import preprocess_input
 
 import cfg
+
 from label import point_inside_of_quad
 from network import East
 from preprocess import resize_image
@@ -53,23 +54,23 @@ def predict(east_detect, img_path, pixel_threshold, quiet=False):
         scale_ratio_h = d_height / im.height
         im = im.resize((d_wight, d_height), Image.NEAREST).convert('RGB')
         quad_im = im.copy()
-        draw = ImageDraw.Draw(im)
-        for i, j in zip(activation_pixels[0], activation_pixels[1]):
-            px = (j + 0.5) * cfg.pixel_size
-            py = (i + 0.5) * cfg.pixel_size
-            line_width, line_color = 1, 'red'
-            if y[i, j, 1] >= cfg.side_vertex_pixel_threshold:
-                if y[i, j, 2] < cfg.trunc_threshold:
-                    line_width, line_color = 2, 'yellow'
-                elif y[i, j, 2] >= 1 - cfg.trunc_threshold:
-                    line_width, line_color = 2, 'green'
-            draw.line([(px - 0.5 * cfg.pixel_size, py - 0.5 * cfg.pixel_size),
-                       (px + 0.5 * cfg.pixel_size, py - 0.5 * cfg.pixel_size),
-                       (px + 0.5 * cfg.pixel_size, py + 0.5 * cfg.pixel_size),
-                       (px - 0.5 * cfg.pixel_size, py + 0.5 * cfg.pixel_size),
-                       (px - 0.5 * cfg.pixel_size, py - 0.5 * cfg.pixel_size)],
-                      width=line_width, fill=line_color)
-        im.save(img_path + '_act.jpg')
+        # draw = ImageDraw.Draw(im)
+        # for i, j in zip(activation_pixels[0], activation_pixels[1]):
+        #     px = (j + 0.5) * cfg.pixel_size
+        #     py = (i + 0.5) * cfg.pixel_size
+        #     line_width, line_color = 1, 'red'
+        #     if y[i, j, 1] >= cfg.side_vertex_pixel_threshold:
+        #         if y[i, j, 2] < cfg.trunc_threshold:
+        #             line_width, line_color = 2, 'yellow'
+        #         elif y[i, j, 2] >= 1 - cfg.trunc_threshold:
+        #             line_width, line_color = 2, 'green'
+        #     draw.line([(px - 0.5 * cfg.pixel_size, py - 0.5 * cfg.pixel_size),
+        #                (px + 0.5 * cfg.pixel_size, py - 0.5 * cfg.pixel_size),
+        #                (px + 0.5 * cfg.pixel_size, py + 0.5 * cfg.pixel_size),
+        #                (px - 0.5 * cfg.pixel_size, py + 0.5 * cfg.pixel_size),
+        #                (px - 0.5 * cfg.pixel_size, py - 0.5 * cfg.pixel_size)],
+        #               width=line_width, fill=line_color)
+        # im.save(img_path + '_act.jpg')
         quad_draw = ImageDraw.Draw(quad_im)
         txt_items = []
         for score, geo, s in zip(quad_scores, quad_after_nms,
@@ -89,9 +90,10 @@ def predict(east_detect, img_path, pixel_threshold, quiet=False):
                 txt_items.append(txt_item + '\n')
             elif not quiet:
                 print('quad invalid with vertex num less then 4.')
-        quad_im.save(img_path + '_predict.jpg')
+        # quad_im.save(img_path + '_predict.jpg')
+        quad_im.save(img_path)
         if cfg.predict_write2txt and len(txt_items) > 0:
-            with open(img_path[:-4] + '.txt', 'w') as f_txt:
+            with open(img_path.split(".jpeg")[0] + '.txt', 'w') as f_txt:
                 f_txt.writelines(txt_items)
 
 
@@ -135,6 +137,14 @@ def parse_args():
                         default=cfg.pixel_threshold,
                         help='pixel activation threshold')
     return parser.parse_args()
+
+
+def start_prediction(cropped_path):
+    east = East()
+    east_detect = east.east_network()
+    east_detect.load_weights("./east_model_weights_3T736.h5")
+
+    predict(east_detect, cropped_path, cfg.pixel_threshold)
 
 
 if __name__ == '__main__':
