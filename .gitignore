@@ -1,3 +1,4 @@
+<<<<<<< a3ea5047342b9c80e2b5feb51d787f02f2ac33d5
 videos/
 frames/
 *.pyc
@@ -6,3 +7,6 @@ env/
 .vscode/
 links.txt
 *__pycache__
+=======
+*.mp4
+>>>>>>> Create gitignore
