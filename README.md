@@ -52,11 +52,11 @@ python extract_frames.py videos/76ers_vs_nuggets_dec2019.mp4 --start 00:01:25 --
 ### Highlight extraction with OCR
 To extract highlights from an already downloaded video you can run
 ```shell
-    python ocr.py --input {PATH_TO_VIDEO} --ocr TRUE
+    python ocr.py --input {PATH_TO_VIDEO} --ocr True
 ```
 Example - Extract highlights from video raptors_warriors_2019.mp4
 ```shell
-python ocr.py --input ./raptors_warriors_2019.mp4 --ocr TRUE
+python ocr.py --input raptors_warriors_2019.mp4 --ocr True
 ```
 The aforementioned video can be downloaded from here: https://drive.google.com/open?id=1jEzUPWSsGkL9jn4K0osA5dlDunhr_Cuj
 
