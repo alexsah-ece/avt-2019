@@ -48,6 +48,18 @@ Example - Extract frames from 1'25" to 1'49"
 python extract_frames.py videos/76ers_vs_nuggets_dec2019.mp4 --start 00:01:25 --end 00:01:49
 ```
 
+
+### Highlight extraction with OCR
+To extract highlights from an already downloaded video you can run
+```shell
+    python ocr.py --input {PATH_TO_VIDEO} --ocr TRUE
+```
+Example - Extract highlights from video raptors_warriors_2019.mp4
+```shell
+python ocr.py --input ./raptors_warriors_2019.mp4 --ocr TRUE
+```
+The aforementioned video can be downloaded from here: https://drive.google.com/open?id=1jEzUPWSsGkL9jn4K0osA5dlDunhr_Cuj
+
 ## Annotation format transformation
 
 You can transform `YOLO` to `VOC` and vice versa using the `format_transform/format_transform.py` script.
